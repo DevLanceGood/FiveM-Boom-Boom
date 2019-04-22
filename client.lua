@@ -1,5 +1,13 @@
 local enabled = false
 
+local DetonatePlayer = function()
+    local ped = GetPlayerPed(-1)
+    local dpos = GetEntityCoords(ped)
+    AddExplosion(dpos.x, dpos.y, dpos.z, 9, 20.0, true, false, true)
+    enabled = false
+    TriggerServerEvent("Boom-Boom:AnnounceDetonation")
+end
+
 Citizen.CreateThread(function()
     while true do
         if IsEntityDead(GetPlayerPed(-1)) then
@@ -18,11 +26,3 @@ RegisterNetEvent("Boom-Boom:AllowDetonation")
 AddEventHandler("Boom-Boom:AllowDetonation", function() 
     enabled = true
 end)
-
-local DetonatePlayer = function()
-    local ped = GetPlayerPed(-1)
-    local dpos = GetEntityCoords(ped)
-    AddExplosion(dpos.x, dpos.y, dpos.z, 9, 20.0, true, false, true)
-    enabled = false
-    TriggerServerEvent("Boom-Boom:AnnounceDetonation")
-end

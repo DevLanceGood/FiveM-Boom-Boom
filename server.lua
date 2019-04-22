@@ -3,7 +3,7 @@ local cooldown = 0
 RegisterCommand("boomboom", function(source, args, raw) 
     if (cooldown == 0) then
         TriggerClientEvent("Boom-Boom:AllowDetonation", source)
-        TriggerClientEvent("chatMessage", source, "[^1Boom-Boom^0]", {255, 255, 255}, "Hit \"" + Config.BoomBoom.ControlsTitle + "\" to detonate your bomb. There is no going back.")
+        TriggerClientEvent("chatMessage", source, "[^1Boom-Boom^0]", {255, 255, 255}, "Hit \"" .. Config.BoomBoom.ControlsTitle .. "\" to detonate your bomb. There is no going back.")
         cooldown = Config.BoomBoom.Cooldown
     else
         TriggerClientEvent("chatMessage", source, "[^1Boom-Boom^0]", {255, 255, 255}, "There is an active cooldown on going boom-boom of " .. cooldown .. " minutes.")
@@ -21,5 +21,6 @@ Citizen.CreateThread(function()
             Citizen.Wait(60000)
             cooldown = cooldown - 1;
         end
+        Citizen.Wait(0)
     end
 end)
